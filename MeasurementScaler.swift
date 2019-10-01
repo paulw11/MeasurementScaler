@@ -1,5 +1,5 @@
 //
-//  MeasurementExtensions.swift
+//  MeasurementScaler.swift
 //
 //  Copyright © 2019 Paul Wilkinson. 
 //
@@ -16,19 +16,16 @@ extension Measurement where UnitType: Dimension {
     ///   - target: The target value
     /// - Returns:
     ///   `Self` converted to the `UnitType` that produces a value less than `target` or scaled by the last `UnitType` in the `scales` array
-
-    func scaled (scales:[UnitType], target: Double) -> Measurement {
-        guard !scales.isEmpty else {
+   
+    func scale (scales:[UnitType], target: Double) -> Measurement {
+        guard !scales.isEmpty, self.value > target else {
             return self
         }
-        var returnMeasure = self.converted(to: scales.first!)
-        if returnMeasure.value.magnitude > target {
-            
-            for unit in scales {
-                returnMeasure.convert(to: unit)
-                if returnMeasure.value.magnitude < target {
-                    break
-                }
+        var returnMeasure = self
+        for unit in scales {
+            returnMeasure.convert(to: unit)
+            if returnMeasure.value < target {
+                break
             }
         }
         return returnMeasure
