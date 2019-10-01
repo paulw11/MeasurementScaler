@@ -7,7 +7,6 @@
 
 extension Measurement where UnitType: Dimension {
 
-   
     /// Attempt to find a  `UnitType` that produces a value less than `target`
     /// 
     /// See [Scaling Measurement in Swift](https://wilko.me/wordpress/?p=371)
