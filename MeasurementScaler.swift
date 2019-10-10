@@ -23,8 +23,7 @@ extension Measurement where UnitType: Dimension {
             return self
         }
         var returnMeasure = self.converted(to: scales.first!)
-        if returnMeasure.value.magnitude > target {
-            
+        if returnMeasure.value.magnitude > target {            
             for unit in scales {
                 returnMeasure.convert(to: unit)
                 if returnMeasure.value.magnitude < target {
